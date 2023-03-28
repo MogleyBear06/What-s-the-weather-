@@ -1,7 +1,6 @@
 # Whats-The-Weather
 
-## Weather App providing users current
-and 5 day forecast for city of interest
+## Weather App providing users current and 5 day forecast for city of interest
 
 Link to application: https://mogleybear06.github.io/Whats-The-Weather/
 
