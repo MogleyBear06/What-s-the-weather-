@@ -57,5 +57,47 @@ const weather = {
     searchCity: function (city) {
         this.fetchWeather(city)
     }
-
+};
+function displayCity() {
+    let cities = JSON.parse(window.localStorage.getItem('cities'));
+    if (cities == null)
+        cities = [];
+    for (let i = 0; i < cities.length; i++) {
+        $(".listCities").append('<ul><a href="#" class="collection-item citiItem">' + cities[i] + '</a></ul>');
+    }
 }
+
+$("document").ready(function () {
+
+    document.querySelector(".btn").addEventListener("click", function () {
+        var cityName = document.querySelector(".searchBar").value;
+        weather.searchCity(cityName);
+        let cities = JSON.parse(window.localStorage.getItem('cities'));
+        if (cities == null)
+            cities = [];
+        cities.push(cityName);
+        $(".listCities").append('<ul><a href="#" class="citiItem">' + cityName + '</a></ul>');
+        localStorage.setItem('cities', JSON.stringify(cities));
+        document.querySelector(".searchBar").value = "";
+
+    });
+
+    displayCity();
+
+    $(document).on('click', '.citiItem', function (e) {
+        e.preventDefault();
+        weather.searchCity($(this).text());
+    });
+
+    document.querySelector(".btn-flat").addEventListener("click", function () {
+        document.querySelector(".listCities").textContent = "";
+
+    });
+
+    document.querySelector(".currentDay").textContent = dayjs().format("DD MMM YYYY");
+
+    $(".wrap").addClass("hoverable");
+    $(".searchList").addClass("collection")
+    $(".listCities").addClass("collection-item");
+    $(".navig").addClass("z-depth-6");
+})
